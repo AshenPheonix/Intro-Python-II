@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from items import Items
 
 # Declare all the rooms
 
@@ -22,6 +23,10 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
+room['outside'].addToInv(Items['torch0'],Items['torch1'])
+room['foyer'].addToInv(Items['torch2'],Items['torch3'],Items['torch4'])
+room['treasure'].addToInv(Items['helmet'],Items['curiass'],Items['greave'],Items['vambrace'])
+room['overlook'].addToInv(Items['bones'],Items['cloth'])
 
 # Link rooms together
 
@@ -58,13 +63,13 @@ def end():
 #
 # If the user enters "q", quit the game.
 while play:
-    print(f"Current Room: {user.currentRoom.name}\n\n{user.currentRoom.desc}")
+    print(f"Current Room: {user.currentRoom.name}\n\n{user.currentRoom.desc}\n{user.currentRoom.printInv()}\n")
     action = input("What would you like to do (q to quit)? Enter a cardinal direction to move in that direction if possible.\n")
     if len(action)<1:
         print("No Action")
     elif 'q' in action.lower():
-        end()
+        end() 
     else:
-        user.move(action[0].lower())
+        user.act(action.lower())
     
 print("Good Bye")
